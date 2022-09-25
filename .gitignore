@@ -1,0 +1,18 @@
+
+.vs/poly/v15/.suo
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal
+*.info
+/Library/*
+/Temp/*
+/obj/*
+*.csproj
+UpgradeLog.htm
+
+*.log
+/Logs/*
+*.csproj
+ProjectSettings/ProjectVersion.txt
+.vs/Projects - Shortcut.lnk
