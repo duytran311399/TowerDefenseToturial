@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     public float speed = 10f;
 
+    public int heart = 100;
+
     private Transform taget;
     private int wavePointIndex = 0;
 
@@ -31,10 +33,28 @@ public class Enemy : MonoBehaviour
     {
         if(wavePointIndex >= Waypoints.points.Length - 1)
         {
-            Destroy(gameObject, 0.1f);
+            EndPath();
             return;
         }
         wavePointIndex++;
         taget = Waypoints.points[wavePointIndex];
+    }
+    void EndPath()
+    {
+        Destroy(gameObject);
+        PlayerStart.Lives--;
+    }
+
+    void TakeDamage(int amount)
+    {
+        heart -= amount;
+        if(heart < 0)
+        {
+            Die();
+        }
+    }
+    void Die()
+    {
+        Destroy(gameObject);
     }
 }

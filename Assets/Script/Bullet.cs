@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public Transform target;
     public float speed = 10f;
+    public float explosionRadius = 0f;
     public GameObject impactEffect;
     
     public void seekTarget(Transform _target)
@@ -31,6 +32,7 @@ public class Bullet : MonoBehaviour
             return;
         }
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+        transform.LookAt(target);
     }
     /// <summary>
     /// //////// ban chung cai j do thi destroy bullet
@@ -39,6 +41,35 @@ public class Bullet : MonoBehaviour
     {
         GameObject effectInt = Instantiate(impactEffect, target.position, target.rotation);
         Destroy(effectInt, 2f);
+
+        if(explosionRadius > 0f)
+        {
+            Explode();
+        }
+        else
+        {
+            Damage(target);
+        }
         Destroy(gameObject);
+    }
+    void Explode()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach(Collider collider in colliders)
+        {
+            if(collider.tag == "Enemy")
+            {
+                Damage(collider.transform);
+            }
+        }
+    }
+    void Damage(Transform enemy)
+    {
+        Destroy(enemy.gameObject);
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, explosionRadius);
     }
 }

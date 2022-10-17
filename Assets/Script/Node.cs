@@ -27,6 +27,10 @@ public class Node : MonoBehaviour
 
     private void OnMouseDown()
     {
+        
+    }
+    private void OnMouseUp()
+    {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
         if (!buildManager.CanBuild)     // canbuild = false -> ko the say dung, canbuild = true -> co the xay dung
@@ -34,7 +38,7 @@ public class Node : MonoBehaviour
             return;
         }
 
-        if(turretBuilded != null)
+        if (turretBuilded != null)
         {
             return;
         }
@@ -44,7 +48,6 @@ public class Node : MonoBehaviour
             isSelected = false;
         }
     }
-
     private void OnMouseEnter()
     {
         if (!buildManager.CanBuild)
