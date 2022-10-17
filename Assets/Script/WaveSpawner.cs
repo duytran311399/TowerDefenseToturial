@@ -9,21 +9,26 @@ public class WaveSpawner : MonoBehaviour
     public Transform spawnPoin;
 
     public Text WaveCoutDownTimer;
+    public Text WaveIndex;
+    public Text Zenny;
 
     public float timebettweenWave = 5f;
-    public float Coutdown = 2f;
+    public float coutntDown = 2f;
 
     public int waveCountIndex = 0;
 
     void Update()
     {
-        if (Coutdown <= 0)
+        if (coutntDown <= 0)
         {
             StartCoroutine(SpawnWave());
-            Coutdown = timebettweenWave;
+            coutntDown = timebettweenWave;
         }
-        Coutdown -= Time.deltaTime;
-        WaveCoutDownTimer.text = Mathf.Round(Coutdown).ToString();
+        coutntDown -= Time.deltaTime;
+        coutntDown = Mathf.Clamp(coutntDown, 0f, Mathf.Infinity);
+        WaveCoutDownTimer.text = string.Format("{0:00.00}", coutntDown);
+        WaveIndex.text = "Wave: " + waveCountIndex.ToString();
+        Zenny.text = "$" + PlayerStart.Zenny.ToString();
     }
     IEnumerator SpawnWave()
     {
